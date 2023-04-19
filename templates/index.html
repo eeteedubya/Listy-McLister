@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <title>New Design</title>
+    <link rel="stylesheet" href="/mystyle.css">
+
+</head>
+
+<body>
+    <div class="row">
+    <!-- navbar section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="#home" class="Absolute-Center" ><img src="../static/logo.png" height="160px" width="480px"></a>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="index.html" class="navbar__links" id="home-page">Home</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="register.html" class="navbar__links" id="reg-page">Register</a>
+                </li>
+                <li class="navbar__item">
+                    <a href="login.html" class="navbar__links" id="login-page">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+<!-- Side navigation -->
+    <div class="row">
+        <div class="sidenav">
+            <script>
+                const listsList = document.getElementById("lists_list")
+
+            </script>
+            {% for listname in lists_list %}
+                {{ listname }}
+            {% endfor %} 
+
+            <h1 class="lists_list" id="lists_list">Lists will go here</h1>
+
+
+
+        </div>
+    </div>
+</body>
+
+
+<script src="static/functions.js"></script>
+</html>

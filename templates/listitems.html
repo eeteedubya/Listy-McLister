@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<script>
+    function record(){
+        const recognition = new webkitSpeechRecognition();
+        recognition.lang = "en-GB";
+        recognition.onresult = function(event){
+            console.log(event)
+            document.getElementById('input_text').value = event.results[0][0].transcript;
+        }
+
+        recognition.start();
+    }
+</script>
+<div class="row">
+<div class="col">
+    <div class="sidebar">
+        <aside class="sidenav";>
+            <!-- <h3> hello {{ session['id'] }} {{ session['username'] }} </h3> -->
+            <h3> Selected List: {{ session['chosenList'] }}</h3>
+            <h3>Your Lists</h3>
+            <form class="" id="container_user_lists" method="POST" action="{{ url_for('choose_list') }}">
+                    
+                    {% for list in new_items %}
+
+                    <input type="radio" class="radio" id="{{ list[0] }}" name="radio-group" value="{{ list[0] }}">
+                    <label for="{{ list[0] }}">{{ list[0] }}</label><br>
+ 
+                    {% endfor %}
+                    <button class="list_button" type="submit" id="select_user_list_btn">Change List</button>
+            </form>
+            <form action="{{ url_for('add_user_list_name') }}" method="post">
+                <input type="text" name="new_listName" id="new_listName">
+                <button type="submit" class="nice-btn">Add New List</button>
+            </form>
+            <h3>Object Detection</h3>
+            <form method="POST" enctype="multipart/form-data" action="/detect">
+                <input type="file" name="image" accept="image/*">
+                <br><br>
+                <input type="submit" value="Detect Objects">
+            
+            
+            {% for item in pic_items %}
+                <h3 class="pickitems" value ="{{ item }}" onclick="addListItem('{{ item }}')">{{ item }}</h3><br>
+            {% endfor %}
+            </form>
+        </aside>
+    </div>
+    </div>
+    <div class="col">
+    <div class="main">
+            <form  action="{{ url_for('add_listitems') }}" method="POST" >
+                <div class="list_div">
+                    <input type="text" id="input_text" name="input_text" placeholder="Enter list item here..." onclick="record()">
+                    <button id="add_btn" class="btn btn-outline-success" type="submit" id="button-addon2">Add to list</button>
+                    <div id="parentList"></div>
+                    <br>
+                    <h3>Task List</h3>
+                    <ul  class="list-group">
+                    {% for item in list_items %}
+
+
+                    <li  class="list-group-item d-flex justify-content-between">
+                        <b class="flex-grow-1">{{ item[0] }}</b>
+                        <!-- <button class="nice-btn" onclick="editChapter(this)">Edit</button> -->
+                        <button class="nice-btn" onclick="removeChapter(this)">Remove</button>
+
+                    {% endfor %}
+                    </ul>
+                </div>
+            </form>
+    </div>
+    </div>
+</div>
+
+
+<script src="static/main.js"></script>
+<script scr="static/functions.js"></script>
+<!-- <script src="static\jquery-3.6.3.js"></script> -->
+
+{% endblock %}
